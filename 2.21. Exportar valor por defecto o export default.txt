@@ -1,0 +1,95 @@
+----------------------------------------------------------------------------------------
+invoices.js
+----------------------------------------------------------------------------------------
+const paper = {
+  product: "paper",
+  price: 100,
+  quantity: 10,
+};
+
+const invoices = [
+  {
+    id: 1,
+    name: "Compras de oficina",
+    client: {
+      name: "Maria",
+      lastname: "Doe",
+    },
+    items: [
+      {
+        product: "keyboard",
+        price: 399,
+        quantity: 2,
+      },
+      {
+        product: "mouse",
+        price: 200,
+        quantity: 1,
+      },
+      paper,
+    ],
+  },
+  {
+    id: 2,
+    name: "Compras de computacion",
+    client: {
+      name: "Pepe",
+      lastname: "Doe",
+    },
+    items: [
+      {
+        product: "keyboard",
+        price: 399,
+        quantity: 2,
+      },
+      {
+        product: "screen 17",
+        price: 500,
+        quantity: 1,
+      },
+      {
+        product: "cpu intel",
+        price: 1000,
+        quantity: 10,
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Compras de papeleria",
+    client: {
+      name: "Jhon",
+      lastname: "Doe",
+    },
+    items: [
+      {
+        product: "pencil",
+        price: 50,
+        quantity: 1,
+      },
+      paper,
+    ],
+  },
+];
+
+const invoiceByClientName = (clientName) => {
+  return invoices.find((i) => i.client.name === clientName);
+};
+
+export { paper, invoices as default, invoiceByClientName };
+
+
+
+----------------------------------------------------------------------------------------
+main.js
+----------------------------------------------------------------------------------------
+import invoices, { invoiceByClientName, paper } from "./data/invoices";
+
+const invoicesName = invoices.map((i) => i.name);
+console.log(invoicesName);
+
+const invoiceFilter2 = invoices.filter((i) => i.items.includes(paper));
+console.log(invoiceFilter2);
+
+console.log("Buscar por nombre del cliente");
+console.log(invoiceByClientName("Maria"));

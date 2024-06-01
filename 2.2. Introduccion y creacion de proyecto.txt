@@ -1,0 +1,18 @@
+----------------------------------------------------------------------------------------
+COMANDOS PARA CREAR Y EJECUTAR UN PROYECTO:
+----------------------------------------------------------------------------------------
+cd <<RUTA DE LA CARPETA DONDE SE VA A ALMACENAR LA CARPETA DEL PROYECTO>>
+
+npm create vite@latest
+
+<<NOMBRE DEL PROYECTO>>
+React
+JavaScript
+
+cd <<NOMBRE DEL PROYECTO>>
+
+ls
+
+npm install
+
+npm run dev

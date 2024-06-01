@@ -1,0 +1,37 @@
+----------------------------------------------------------------------------------------
+index.html
+----------------------------------------------------------------------------------------
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
+
+
+
+----------------------------------------------------------------------------------------
+main.js
+----------------------------------------------------------------------------------------
+let name = "Pepe";
+name = "Andres";
+
+const lastname = "Doe";
+// lastname = "Roe";
+const condicion = true;
+
+if (condicion) {
+  const lastname = "Ale";
+  console.log(lastname);
+}
+console.log("Hola mundo " + name + " " + lastname);
