@@ -1,0 +1,49 @@
+----------------------------------------------------------------------------------------
+COMANDOS PARA CREAR Y EJECUTAR UN PROYECTO:
+----------------------------------------------------------------------------------------
+cd <<RUTA DE LA CARPETA DONDE SE VA A ALMACENAR LA CARPETA DEL PROYECTO>>
+
+ls 
+
+npm create vite
+
+03-counter-app
+React
+JavaScript
+
+ls
+
+cd 03-counter-app
+
+ls
+
+npm install
+
+npm run dev
+
+
+
+----------------------------------------------------------------------------------------
+main.jsx
+----------------------------------------------------------------------------------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { CounterApp } from './CounterApp.jsx'
+// import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <CounterApp />
+    </React.StrictMode>,
+)
+
+
+
+----------------------------------------------------------------------------------------
+CounterApp.jsx
+----------------------------------------------------------------------------------------
+export const CounterApp = () => {
+    return <>
+
+    </>
+}

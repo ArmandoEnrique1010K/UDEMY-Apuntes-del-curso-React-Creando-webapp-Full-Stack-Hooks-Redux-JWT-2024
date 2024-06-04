@@ -1,0 +1,32 @@
+----------------------------------------------------------------------------------------
+main.jsx
+----------------------------------------------------------------------------------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+// import './index.css'
+import { HelloWorld } from './components/HelloWorld'
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <HelloWorld />
+    </React.StrictMode>
+);
+
+
+
+----------------------------------------------------------------------------------------
+HelloWorld.jsx
+----------------------------------------------------------------------------------------
+import { Fragment } from "react";
+
+export function HelloWorld() {
+
+    return (
+        <Fragment>
+            <h1>Hola mundo</h1>
+            <div>Que tal</div>
+        </Fragment>
+    );
+
+}

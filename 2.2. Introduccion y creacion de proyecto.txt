@@ -5,11 +5,11 @@ cd <<RUTA DE LA CARPETA DONDE SE VA A ALMACENAR LA CARPETA DEL PROYECTO>>
 
 npm create vite@latest
 
-<<NOMBRE DEL PROYECTO>>
+01-intro-js
 React
 JavaScript
 
-cd <<NOMBRE DEL PROYECTO>>
+cd 01-intro-js
 
 ls
 
