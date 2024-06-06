@@ -1,0 +1,46 @@
+----------------------------------------------------------------------------------------
+COMANDOS PARA CREAR Y EJECUTAR UN PROYECTO:
+----------------------------------------------------------------------------------------
+cd <<RUTA DE LA CARPETA DONDE SE VA A ALMACENAR LA CARPETA DEL PROYECTO>>
+
+npm create vite
+
+04-invoice-app
+React
+JavaScript
+
+cd 04-invoice-app
+
+npm install
+
+npm run dev
+
+
+
+----------------------------------------------------------------------------------------
+InvoiceApp.jsx
+----------------------------------------------------------------------------------------
+export const InvoiceApp = () => {
+    return (
+        <>
+            <h1>Ejemplo Factura</h1>
+        </>
+    )
+}
+
+
+
+----------------------------------------------------------------------------------------
+main.jsx
+----------------------------------------------------------------------------------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { InvoiceApp } from './components/InvoiceApp'
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <InvoiceApp />
+    </React.StrictMode>,
+)
+

@@ -1,0 +1,95 @@
+----------------------------------------------------------------------------------------
+InvoiceApp.jsx
+----------------------------------------------------------------------------------------
+// import { invoice } from "../data/invoice"
+import { getInvoice } from "./services/getInvoice"
+import { ClientView } from "./components/ClientView";
+import { CompanyView } from "./components/CompanyView";
+import { InvoiceView } from "./components/InvoiceView";
+import { ListItemsView } from "./components/ListItemsView";
+
+export const InvoiceApp = () => {
+
+    const { id, name, client, company, items } = getInvoice()
+
+    return (
+        <>
+            <div className="container">
+                <div className="card my-3">
+                    <div className="card-header">
+                        Ejemplo Factura
+                    </div>
+                    <div className="card-body">
+                        <InvoiceView id={id} name={name} />
+                        <div className="row my-3">
+                            <div className="col">
+                                <ClientView title="Datos del cliente" client={client} />
+                            </div>
+
+                            <div className="col">
+                                <CompanyView title="Datos de la empresa" company={company} />
+                            </div>
+                        </div>
+
+                        <ListItemsView title="Productos de la factura" items={items} />
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+
+----------------------------------------------------------------------------------------
+main.jsx
+----------------------------------------------------------------------------------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { InvoiceApp } from './InvoiceApp'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <InvoiceApp />
+    </React.StrictMode>,
+)
+
+
+
+----------------------------------------------------------------------------------------
+ClientView.jsx
+----------------------------------------------------------------------------------------
+import PropTypes from "prop-types";
+
+export const ClientView = ({ title, client }) => {
+
+    const {
+        name: nameClient,
+        lastname,
+        address: {
+            country,
+            city,
+            street,
+            number
+        }
+    } = client;
+    // const { country, city, street, number } = address
+
+    return (
+        <>
+            <h3>{title}</h3>
+            <ul className="list-group">
+                <li className="list-group-item active">{nameClient} {lastname}</li>
+                <li className="list-group-item">{country} / {city}</li>
+                <li className="list-group-item">{street} {number}</li>
+            </ul>
+        </>
+    )
+}
+
+ClientView.propTypes = {
+    title: PropTypes.string.isRequired,
+    client: PropTypes.object.isRequired
+}
+
+

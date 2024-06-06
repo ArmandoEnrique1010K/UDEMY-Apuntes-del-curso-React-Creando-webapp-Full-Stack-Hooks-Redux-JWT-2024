@@ -1,0 +1,114 @@
+----------------------------------------------------------------------------------------
+InvoiceApp.jsx
+----------------------------------------------------------------------------------------
+// import { invoice } from "../data/invoice"
+import { getInvoice } from "../services/getInvoice"
+import { ClientView } from "./ClientView";
+import { CompanyView } from "./CompanyView";
+import { InvoiceView } from "./InvoiceView";
+
+export const InvoiceApp = () => {
+
+    const { id, name, client, company, items } = getInvoice()
+
+    return (
+        <>
+            <div className="container">
+                <div className="card my-3">
+                    <div className="card-header">
+                        Ejemplo Factura
+                    </div>
+                    <div className="card-body">
+                        <InvoiceView id={id} name={name} />
+
+                        <div className="row my-3">
+                            <div className="col">
+                                <ClientView title="Datos del cliente" client={client} />
+                            </div>
+
+                            <div className="col">
+                                <CompanyView title="Datos de la empresa" company={company} />
+                            </div>
+                        </div>
+
+                        <h3>Productos de la factura</h3>
+                        <table className="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {items.map(({ id, product, price, quantity }) => (
+                                    <tr key={id}>
+                                        <td>{product}</td>
+                                        <td>{price}</td>
+                                        <td>{quantity}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+
+----------------------------------------------------------------------------------------
+ClientView.jsx
+----------------------------------------------------------------------------------------
+export const ClientView = ({ title, client }) => {
+
+    const { name: nameClient, lastname, address } = client;
+    const { country, city, street, number } = address
+
+    return (
+        <>
+            <h3>{title}</h3>
+            <ul className="list-group">
+                <li className="list-group-item active">{nameClient} {lastname}</li>
+                <li className="list-group-item">{country} / {city}</li>
+                <li className="list-group-item">{street} {number}</li>
+            </ul>
+        </>
+    )
+}
+
+
+
+----------------------------------------------------------------------------------------
+CompanyView.jsx
+----------------------------------------------------------------------------------------
+export const CompanyView = ({ title, company }) => {
+    return (
+        <>
+            <h3>{title}</h3>
+            <ul className="list-group">
+                <li className="list-group-item active">{company.name}</li>
+                <li className="list-group-item">{company.fiscalNumber}</li>
+            </ul>
+        </>
+    )
+}
+
+
+
+----------------------------------------------------------------------------------------
+InvoiceView.jsx
+----------------------------------------------------------------------------------------
+export const InvoiceView = ({ id, name }) => {
+    return (
+        <>
+            <ul className="list-group">
+                <li className="list-group-item">Id: {id}</li>
+                <li className="list-group-item">Nombre: {name}</li>
+            </ul>
+        </>
+    )
+}
+

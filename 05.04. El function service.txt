@@ -1,0 +1,35 @@
+----------------------------------------------------------------------------------------
+InvoiceApp.jsx
+----------------------------------------------------------------------------------------
+// import { invoice } from "../data/invoice"
+import { getInvoice } from "../services/getInvoice"
+
+export const InvoiceApp = () => {
+
+    const invoice = getInvoice()
+
+    return (
+        <>
+            <h1>Ejemplo Factura</h1>
+            <ul>
+                <li>Id: {invoice.id}</li>
+                <li>Nombre: {invoice.name}</li>
+            </ul>
+        </>
+    )
+}
+
+
+
+----------------------------------------------------------------------------------------
+getInvoice.js
+----------------------------------------------------------------------------------------
+import { invoice } from "../data/invoice";
+
+export const getInvoice = () => {
+  console.log(invoice);
+  return invoice;
+};
+
+
+

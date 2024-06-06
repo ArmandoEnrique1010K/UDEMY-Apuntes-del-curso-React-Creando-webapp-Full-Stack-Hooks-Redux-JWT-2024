@@ -1,0 +1,139 @@
+----------------------------------------------------------------------------------------
+COMANDO PARA IMPORTAR PROPTYPES
+----------------------------------------------------------------------------------------
+npm install prop-types
+
+
+
+----------------------------------------------------------------------------------------
+InvoiceView.jsx
+----------------------------------------------------------------------------------------
+import PropTypes from "prop-types";
+
+export const InvoiceView = ({ id, name }) => {
+    return (
+        <>
+            <ul className="list-group">
+                <li className="list-group-item">Id: {id}</li>
+                <li className="list-group-item">Nombre: {name}</li>
+            </ul>
+        </>
+    )
+}
+
+InvoiceView.propTypes = {
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+}
+
+
+
+----------------------------------------------------------------------------------------
+ClientView.jsx
+----------------------------------------------------------------------------------------
+import PropTypes from "prop-types";
+
+export const ClientView = ({ title, client }) => {
+
+    const { name: nameClient, lastname, address } = client;
+    const { country, city, street, number } = address
+
+    return (
+        <>
+            <h3>{title}</h3>
+            <ul className="list-group">
+                <li className="list-group-item active">{nameClient} {lastname}</li>
+                <li className="list-group-item">{country} / {city}</li>
+                <li className="list-group-item">{street} {number}</li>
+            </ul>
+        </>
+    )
+}
+
+ClientView.propTypes = {
+    title: PropTypes.string.isRequired,
+    client: PropTypes.object.isRequired
+}
+
+
+
+----------------------------------------------------------------------------------------
+CompanyView.jsx
+----------------------------------------------------------------------------------------
+import PropTypes from "prop-types";
+
+export const CompanyView = ({ title, company }) => {
+    return (
+        <>
+            <h3>{title}</h3>
+            <ul className="list-group">
+                <li className="list-group-item active">{company.name}</li>
+                <li className="list-group-item">{company.fiscalNumber}</li>
+            </ul>
+        </>
+    )
+}
+
+CompanyView.propTypes = {
+    title: PropTypes.string.isRequired,
+    company: PropTypes.object.isRequired
+}
+
+
+
+----------------------------------------------------------------------------------------
+ListItemsView.jsx
+----------------------------------------------------------------------------------------
+import PropTypes from "prop-types";
+import { RowItemView } from "./RowItemView"
+
+export const ListItemsView = ({ title, items }) => {
+    return <>
+        <h3>{title}</h3>
+        <table className="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {items.map(({ id, product, price, quantity }) => (
+                    <RowItemView key={id} product={product} price={price} quantity={quantity} />
+                ))}
+            </tbody>
+        </table>
+    </>
+}
+
+ListItemsView.propTypes = {
+    title: PropTypes.string.isRequired,
+    items: PropTypes.array
+}
+
+
+
+----------------------------------------------------------------------------------------
+RowItemView.jsx
+----------------------------------------------------------------------------------------
+import PropTypes from "prop-types";
+
+export const RowItemView = ({ product, price, quantity }) => {
+    return <>
+        <tr>
+            <td>{product}</td>
+            <td>{price}</td>
+            <td>{quantity}</td>
+        </tr>
+    </>
+}
+
+RowItemView.propTypes = {
+    product: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired
+}
+
+
+
