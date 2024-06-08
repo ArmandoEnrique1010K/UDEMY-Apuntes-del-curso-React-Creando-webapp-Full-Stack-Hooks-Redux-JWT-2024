@@ -1,0 +1,112 @@
+----------------------------------------------------------------------------------------
+InvoiceApp.jsx
+----------------------------------------------------------------------------------------
+import { useState } from "react";
+// import { invoice } from "../data/invoice"
+import { getInvoice } from "./services/getInvoice"
+import { ClientView } from "./components/ClientView";
+import { CompanyView } from "./components/CompanyView";
+import { InvoiceView } from "./components/InvoiceView";
+import { ListItemsView } from "./components/ListItemsView";
+import { TotalView } from "./components/TotalView";
+
+export const InvoiceApp = () => {
+
+    // Desestructurar el objeto invoice recibido
+    const { total, id, name, client, company, items: itemsInitial } = getInvoice()
+
+    // Definir el estado para cada campo del formulario
+    const [productValue, setProductValue] = useState('');
+    const [priceValue, setPriceValue] = useState('');
+    const [quantityValue, setQuantityValue] = useState('');
+
+    // Definir el estado para los items de la factura
+    const [items, setItems] = useState(itemsInitial);
+
+    return (
+        <>
+            <div className="container">
+                <div className="card my-3">
+                    <div className="card-header">
+                        Ejemplo Factura
+                    </div>
+                    <div className="card-body">
+                        <InvoiceView id={id} name={name} />
+
+                        <div className="row my-3">
+                            <div className="col">
+                                <ClientView title="Datos del cliente" client={client} />
+                            </div>
+
+                            <div className="col">
+                                <CompanyView title="Datos de la empresa" company={company} />
+                            </div>
+                        </div>
+
+                        <ListItemsView title="Productos de la factura" items={items} />
+
+                        <TotalView total={total} />
+
+                        <form
+                            onSubmit={(event) => {
+
+                                // Actualizar el arreglo de items
+                                event.preventDefault();
+                                setItems([...items, {
+                                    id: 4,
+                                    product: productValue,
+                                    price: +priceValue,
+                                    quantity: parseInt(quantityValue, 10),
+                                }])
+
+                                // Limpiar los campos de texto
+                                setProductValue('');
+                                setPriceValue('');
+                                setQuantityValue('');
+                            }}>
+                            <input
+                                type="text"
+                                name="product"
+                                value={productValue}
+                                placeholder="Producto"
+                                className="form-control my-3"
+                                onChange={(event) => {
+                                    console.log(event.target.value);
+                                    setProductValue(event.target.value);
+                                }} />
+                            <input
+                                type="text"
+                                name="price"
+                                value={priceValue}
+                                placeholder="Precio"
+                                className="form-control my-3"
+                                onChange={(event) => {
+                                    console.log(event.target.value);
+                                    setPriceValue(event.target.value);
+                                }} />
+                            <input
+                                type="text"
+                                name="quantity"
+                                value={quantityValue}
+                                placeholder="Cantidad"
+                                className="form-control my-3"
+                                onChange={(event) => {
+                                    console.log(event.target.value);
+                                    setQuantityValue(event.target.value);
+                                }} />
+                            <button type="submir" className="btn btn-primary">Nuevo item</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+
+
+
+
+
+
