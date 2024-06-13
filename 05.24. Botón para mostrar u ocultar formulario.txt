@@ -1,3 +1,6 @@
+----------------------------------------------------------------------------------------
+InvoiceApp.jsx
+----------------------------------------------------------------------------------------
 import { useEffect, useState } from "react";
 import { getInvoice, calculateTotal } from "./services/getInvoice"
 import { ClientView } from "./components/ClientView";
@@ -77,11 +80,6 @@ export const InvoiceApp = () => {
 
     }
 
-    // Definir una función para eliminar un item por su ID
-    const handlerDeleteItem = (id) => {
-        setItems(items.filter(item => item.id !== id));
-    }
-
     // Definir una función para manejar el estado del botón
     const onActiveForm = () => {
         setActiveForm(!activeForm)
@@ -106,7 +104,7 @@ export const InvoiceApp = () => {
                                 <CompanyView title="Datos de la empresa" company={company} />
                             </div>
                         </div>
-                        <ListItemsView title="Productos de la factura" items={items} handlerDeleteItem={(id) => handlerDeleteItem(id)} />
+                        <ListItemsView title="Productos de la factura" items={items} />
 
                         <TotalView total={total} />
 
@@ -120,4 +118,5 @@ export const InvoiceApp = () => {
         </>
     )
 }
+
 
