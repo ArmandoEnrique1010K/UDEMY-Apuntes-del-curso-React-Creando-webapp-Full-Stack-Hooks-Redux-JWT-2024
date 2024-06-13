@@ -4,3 +4,9 @@ Nota:
 - Todo esta documentado por secciones dentro de los archivos rar., no lo subo a Google Drive porque he tenido problemas con las imagenes nitidas que se ven borrosas.
 - Los archivos txt contiene el ultimo cambio realizado al codigo fuente antes de pasar a la siguiente sección.
 - Los archivos word contienen una guia sobre lo que he documentado paso a paso. Las mejoras fueron hechas con inteligencia artificial.
+- Se tiene en cuenta el siguiente orden:
+-   sección 01: Introducción
+-   sección 02: JavaScript para el desarrollo con React
+-   sección 03: Introducción a React
+-   sección 04: Aplicación contador (secuencia de 12 pasos)
+-   sección 05: Aplicación factura (secuencia de 120 pasos)
