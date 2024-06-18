@@ -1,0 +1,80 @@
+----------------------------------------------------------------------------------------
+CartView.jsx
+----------------------------------------------------------------------------------------
+export const CartView = ({ items }) => {
+    return (<>
+        <h3>Carro de compras</h3>
+        <table className="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {items.map(item => (
+                    <tr key={item.product.id}>
+                        <td>{item.product.name}</td>
+                        <td>{item.product.price}</td>
+                        <td>{item.quantity}</td>
+                        <td>{item.quantity * item.product.price}</td>
+                        <td>eliminar</td>
+                    </tr>
+                ))}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colSpan={3} className="text-end fw-bold">Total</td>
+                    <td colSpan={2} className="text-start fw-bold">12345</td>
+                </tr>
+            </tfoot>
+        </table>
+    </>)
+}
+
+
+
+----------------------------------------------------------------------------------------
+CartApp.jsx
+----------------------------------------------------------------------------------------
+import { useState } from "react"
+import { CartView } from "./components/CartView"
+import { CatalogView } from "./components/CatalogView"
+
+// Valores iniciales para el estado cartItems
+const initialCartItems = [
+    // {
+    //     product: {
+    //     },
+    //     quantity: 0,
+    //     total: 0,
+    // }
+]
+
+// Funcion principal del componente CartApp
+export const CartApp = () => {
+
+    // Estado para los productos del carrito
+    const [cartItems, setCartItems] = useState(initialCartItems);
+
+    return (
+        <>
+            <div className="container">
+                <h3>Cart App</h3>
+                <CatalogView />
+
+                <div className="my-4 w-50">
+                    <CartView items={cartItems} />
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+
+
+
