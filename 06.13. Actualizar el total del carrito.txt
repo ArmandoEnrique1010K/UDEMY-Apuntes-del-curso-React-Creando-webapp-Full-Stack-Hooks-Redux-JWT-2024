@@ -1,0 +1,173 @@
+----------------------------------------------------------------------------------------
+productServices.js
+----------------------------------------------------------------------------------------
+import { products } from "../data/products";
+
+// Función para obtener los productos
+export const getProducts = () => {
+  return products;
+};
+
+// Función para calcular el total
+export const calculateTotal = (items) => {
+  return items.reduce(
+    (accumulator, item) => accumulator + item.product.price * item.quantity,
+    0
+  );
+};
+
+
+
+----------------------------------------------------------------------------------------
+CartView.jsx
+----------------------------------------------------------------------------------------
+import { useEffect, useState } from "react";
+import { calculateTotal } from "../services/productServices";
+
+export const CartView = ({ handlerDelete, items }) => {
+
+    // Estado inicial para el calculo del precio total
+    const [total, setTotal] = useState(0);
+
+    // Efecto secundario para recalcular el total
+    useEffect(() => {
+
+        // Establecer el valor del total, se invoca a la función desde productServices
+        setTotal(calculateTotal(items));
+
+    }, [items])
+
+    // Funcion para eliminar un producto
+    const onDeleteProduct = (id) => {
+        // console.log("eliminando producto");
+        handlerDelete(id);
+    }
+
+    return (<>
+        <h3>Carro de compras</h3>
+        <table className="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {items.map(item => (
+                    <tr key={item.product.id}>
+                        <td>{item.product.name}</td>
+                        <td>{item.product.price}</td>
+                        <td>{item.quantity}</td>
+                        <td>{item.quantity * item.product.price}</td>
+                        <td><button
+                            className="btn btn-danger"
+                            onClick={() => onDeleteProduct(item.product.id)}
+                        >eliminar</button></td>
+                    </tr>
+                ))}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colSpan={3} className="text-end fw-bold">Total</td>
+                    <td colSpan={2} className="text-start fw-bold">{total}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </>)
+}
+
+
+
+----------------------------------------------------------------------------------------
+CartApp.jsx
+----------------------------------------------------------------------------------------
+import { useState } from "react"
+import { CartView } from "./components/CartView"
+import { CatalogView } from "./components/CatalogView"
+
+// Valores iniciales para el estado cartItems
+const initialCartItems = [
+    // {
+    //     product: {
+    //     },
+    //     quantity: 0,
+    //     total: 0,
+    // }
+]
+
+// Funcion principal del componente CartApp
+export const CartApp = () => {
+
+    // Estado para los productos del carrito
+    const [cartItems, setCartItems] = useState(initialCartItems);
+
+    // Función para añadir un producto al carrito
+    const handlerAddProductCart = (product) => {
+
+        // Validar si el item con el id... ya existe en el carrito
+        const hasItem = cartItems.find((i) => i.product.id === product.id);
+
+        if (hasItem) {
+
+            // Actualizar el estado de cartItems con el metodo map
+            // setCartItems([
+            //     ...cartItems.filter((i) => i.product.id !== product.id),
+            //     {
+            //         product,
+            //         quantity: hasItem.quantity + 1,
+            //     }
+            // ])
+            setCartItems(
+                cartItems.map((i) => {
+                    // Si el producto existe, solamente su cantidad aumentara en 1
+                    if (i.product.id === product.id) {
+                        i.quantity = i.quantity + 1;
+                    }
+                    // El map devuelve un nuevo arreglo
+                    return i;
+                }),
+            )
+
+        } else {
+
+            // Actualizar el estado de cartItems, agregando el item
+            setCartItems([
+                ...cartItems,
+                {
+                    product,
+                    quantity: 1,
+                }
+            ]);
+
+        }
+
+    }
+
+    // Funcion para eliminar un producto del carrito
+    const handlerDeleteProductCart = (id) => {
+        // Actualizar el estado de cartItems excluyendo el producto con el id...
+        setCartItems([
+            ...cartItems.filter((i) => i.product.id !== id)
+        ]);
+    }
+
+    return (
+        <>
+            <div className="container my-4">
+                <h3>Cart App</h3>
+                <CatalogView handler={handlerAddProductCart} />
+
+                {cartItems?.length <= 0 || (
+                    <div className="my-4 w-50">
+                        <CartView items={cartItems} handlerDelete={handlerDeleteProductCart} />
+                    </div>
+                )}
+            </div>
+        </>
+    )
+}
+
+

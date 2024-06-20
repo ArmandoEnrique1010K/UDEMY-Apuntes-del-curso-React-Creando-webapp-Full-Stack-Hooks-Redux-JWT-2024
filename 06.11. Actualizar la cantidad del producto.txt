@@ -1,9 +1,19 @@
+----------------------------------------------------------------------------------------
+CartApp.jsx
+----------------------------------------------------------------------------------------
 import { useState } from "react"
 import { CartView } from "./components/CartView"
 import { CatalogView } from "./components/CatalogView"
 
-// Valores iniciales para el estado cartItems, se guardan en sessionStorage (si hay) o es un arreglo vacio
-const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
+// Valores iniciales para el estado cartItems
+const initialCartItems = [
+    // {
+    //     product: {
+    //     },
+    //     quantity: 0,
+    //     total: 0,
+    // }
+]
 
 // Funcion principal del componente CartApp
 export const CartApp = () => {
@@ -53,26 +63,19 @@ export const CartApp = () => {
 
     }
 
-    // Funcion para eliminar un producto del carrito
-    const handlerDeleteProductCart = (id) => {
-        // Actualizar el estado de cartItems excluyendo el producto con el id...
-        setCartItems([
-            ...cartItems.filter((i) => i.product.id !== id)
-        ]);
-    }
-
     return (
         <>
-            <div className="container my-4">
+            <div className="container">
                 <h3>Cart App</h3>
                 <CatalogView handler={handlerAddProductCart} />
 
-                {cartItems?.length <= 0 || (
-                    <div className="my-4 w-50">
-                        <CartView items={cartItems} handlerDelete={handlerDeleteProductCart} />
-                    </div>
-                )}
+                <div className="my-4 w-50">
+                    <CartView items={cartItems} />
+                </div>
             </div>
         </>
     )
 }
+
+
+
