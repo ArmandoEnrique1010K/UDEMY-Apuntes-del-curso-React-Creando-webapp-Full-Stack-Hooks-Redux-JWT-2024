@@ -1,9 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 export const ProductCardView = ({ handler, id, name, description, price }) => {
+
+    // useNavigate sirve para redirgir hacia una ruta
+    const navigate = useNavigate();
 
     // Función para añadir un producto
     const onAddProduct = (product) => {
         console.log(product);
         handler(product);
+        // Especificar la ruta
+        navigate('/cart');
     }
 
     return (

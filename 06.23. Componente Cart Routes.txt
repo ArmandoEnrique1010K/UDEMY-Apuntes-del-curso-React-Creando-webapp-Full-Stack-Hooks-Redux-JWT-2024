@@ -1,0 +1,70 @@
+----------------------------------------------------------------------------------------
+CartRoutes.jsx
+----------------------------------------------------------------------------------------
+import { Navigate, Route, Routes } from "react-router-dom"
+import { CatalogView } from "../components/CatalogView"
+import { CartView } from "../components/CartView"
+
+export const CartRoutes = ({ handlerAddProductCart, handlerDeleteProductCart, cartItems }) => {
+    return (
+        <Routes Routes >
+            <Route
+                path="catalog"
+                element={<CatalogView handler={handlerAddProductCart} />
+                }
+            />
+            <Route
+                path="cart"
+                element={(
+                    cartItems?.length <= 0 ?
+                        <div className="alert alert-warning">No hay productos en el carrito de compras</div>
+                        :
+                        (
+                            <div className="my-4 w-50">
+                                <CartView items={cartItems} handlerDelete={handlerDeleteProductCart} />
+                            </div>
+                        )
+                )}
+            />
+            <Route
+                path="/"
+                element={
+                    <Navigate to={'/catalog'} />
+                }
+            />
+        </Routes >
+    )
+}
+
+
+
+----------------------------------------------------------------------------------------
+CartApp.jsx
+----------------------------------------------------------------------------------------
+import { useItemsCart } from "./hooks/useItemsCart"
+import { Navbar } from "./components/Navbar";
+import { CartRoutes } from "./routes/CartRoutes";
+
+// Funcion principal del componente CartApp
+export const CartApp = () => {
+
+    // Hook personalizado useItemsCart
+    const { cartItems, handlerAddProductCart, handlerDeleteProductCart } = useItemsCart();
+
+    return (
+        <>
+            <Navbar />
+
+            <div className="container my-4">
+                <h3>Cart App</h3>
+                <CartRoutes
+                    cartItems={cartItems}
+                    handlerAddProductCart={handlerAddProductCart}
+                    handlerDeleteProductCart={handlerDeleteProductCart}
+                />
+            </div>
+        </>
+    )
+}
+
+

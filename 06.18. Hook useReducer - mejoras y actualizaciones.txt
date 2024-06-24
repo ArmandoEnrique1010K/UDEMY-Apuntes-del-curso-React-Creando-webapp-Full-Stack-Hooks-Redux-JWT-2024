@@ -1,0 +1,141 @@
+----------------------------------------------------------------------------------------
+itemsActions.js
+----------------------------------------------------------------------------------------
+export const AddProductCart = "AddProductCart";
+export const UpdateQuantityProductCart = "UpdateQuantityProductCart";
+export const DeleteProductCart = "DeleteProductCart";
+
+
+
+----------------------------------------------------------------------------------------
+itemsReducer.js
+----------------------------------------------------------------------------------------
+import {
+  AddProductCart,
+  DeleteProductCart,
+  UpdateQuantityProductCart,
+} from "./itemsActions";
+
+// Función reductora para los items, cuyo estado inicial es un arreglo vacio
+export const itemsReducer = (state = [], action) => {
+  switch (action.type) {
+    // Caso agregar un producto al carrito
+    case AddProductCart:
+      return [
+        // Se modifica el estado en lugar de cartItems
+        ...state,
+        {
+          // payload va a ser el objeto product
+          product: action.payload,
+          quantity: 1,
+        },
+      ];
+
+    // Caso actualizar la cantidad del producto en el carrito
+    case UpdateQuantityProductCart:
+      return state.map((i) => {
+        // Si el producto existe, solamente su cantidad aumentara en 1
+        if (i.product.id === action.payload.id) {
+          return {
+            ...i,
+            quantity: i.quantity + 1,
+          };
+        }
+        // El map devuelve un nuevo arreglo
+        return i;
+      });
+
+    // Caso eliminar el producto del producto
+    case DeleteProductCart:
+      // payload va a ser el id en este caso
+      return state.filter((i) => i.product.id !== action.payload);
+
+    // Caso por defecto, devuelve el estado
+    default:
+      return state;
+  }
+};
+
+
+
+----------------------------------------------------------------------------------------
+CartApp.jsx
+----------------------------------------------------------------------------------------
+import { useEffect, useReducer } from "react"
+import { CartView } from "./components/CartView"
+import { CatalogView } from "./components/CatalogView"
+import { itemsReducer } from "./reducer/itemsReducer";
+import { AddProductCart, DeleteProductCart, UpdateQuantityProductCart } from "./reducer/itemsActions";
+
+// Valores iniciales para el estado cartItems, se guardan en sessionStorage (si hay) o es un arreglo vacio
+const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+// Funcion principal del componente CartApp
+export const CartApp = () => {
+
+    // Estado para los productos del carrito con una logica personalizada definida en itemsReducer
+    const [cartItems, dispatch] = useReducer(itemsReducer, initialCartItems);
+
+    // Efecto secundario para guardar los items del carrito en sessionStorage
+    useEffect(() => {
+        // Implementar sessionStorage 
+        sessionStorage.setItem('cart', JSON.stringify(cartItems));
+    }, [cartItems])
+
+    // Función para añadir un producto al carrito
+    const handlerAddProductCart = (product) => {
+
+        // Validar si el item con el id... ya existe en el carrito
+        const hasItem = cartItems.find((i) => i.product.id === product.id);
+
+        if (hasItem) {
+
+            // Despachar el objeto product con la función UpdateQuantityProductCart
+            dispatch(
+                {
+                    type: UpdateQuantityProductCart,
+                    payload: product,
+                }
+            )
+
+        } else {
+
+            // Despachar el objeto product con la función AddProductCart
+            dispatch(
+                {
+                    type: AddProductCart,
+                    payload: product,
+                }
+            )
+
+        }
+
+    }
+
+    // Funcion para eliminar un producto del carrito
+    const handlerDeleteProductCart = (id) => {
+
+        // Despachar el id con la función DeleteProductCart
+        dispatch(
+            {
+                type: DeleteProductCart,
+                payload: id,
+            }
+        )
+    }
+
+    return (
+        <>
+            <div className="container my-4">
+                <h3>Cart App</h3>
+                <CatalogView handler={handlerAddProductCart} />
+
+                {cartItems?.length <= 0 || (
+                    <div className="my-4 w-50">
+                        <CartView items={cartItems} handlerDelete={handlerDeleteProductCart} />
+                    </div>
+                )}
+            </div>
+        </>
+    )
+}
