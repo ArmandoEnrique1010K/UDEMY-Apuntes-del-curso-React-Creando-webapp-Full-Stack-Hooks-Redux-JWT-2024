@@ -21,21 +21,39 @@ export const UsersApp = () => {
 
     return (
         <>
+            {
+                // Mostrar el <div> solamente si el estado de visibleForm es true
+                !visibleForm || <div className="abrir-modal animacion fadeIn">
+                    <div
+                        className="modal"
+                        tabIndex={-1}
+                        style={{ display: "block" }}
+                    >
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">
+                                        {/* Si el id del estado userSelected es mayor que 0, se mostrara "Editar"; de lo contrario, "Crear" */}
+                                        {userSelected.id > 0 ? 'Editar ' : 'Crear '} Modal Usuarios
+                                    </h5>
+                                </div>
+                                <div className="modal-body">
+                                    {/* Renderizar el componente UserForm pasando las propiedades initialUserForm, userSelected, handlerAddUsers y handlerCloseForm */}
+                                    <UserForm
+                                        initialUserForm={initialUserForm}
+                                        userSelected={userSelected}
+                                        handlerAddUser={handlerAddUser}
+                                        handlerCloseForm={handlerCloseForm}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className="container my-4">
                 <h2>Users App</h2>
                 <div className="row">
-                    {
-                        // Renderizar el componente UserForm solamente si el estado de visibleForm es true
-                        !visibleForm || <div className="col">
-                            {/* Renderizar el componente UserForm pasando las propiedades initialUserForm, userSelected, handlerAddUsers y handlerCloseForm */}
-                            <UserForm
-                                initialUserForm={initialUserForm}
-                                userSelected={userSelected}
-                                handlerAddUser={handlerAddUser}
-                                handlerCloseForm={handlerCloseForm}
-                            />
-                        </div>
-                    }
                     <div className="col">
                         {
                             // Renderizar el botón para agregar un nuevo usuario solamente si el estado de visibleForm es false
@@ -66,4 +84,3 @@ export const UsersApp = () => {
         </>
     );
 }
-
