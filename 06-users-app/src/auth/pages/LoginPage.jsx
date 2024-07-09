@@ -9,7 +9,8 @@ const initialLoginForm = {
 }
 
 // Pagina web funcional LoginPage
-export const LoginPage = () => {
+// Recibe la propiedad desestructurada handlerLogin
+export const LoginPage = ({ handlerLogin }) => {
 
     // Estado local para el formulario de login
     const [loginForm, setLoginForm] = useState(initialLoginForm)
@@ -49,18 +50,8 @@ export const LoginPage = () => {
             });
         }
 
-        // Implementar un login simulado
-        if (username === 'admin' && password === '12345') {
-            // Aquí se implementará la función handlerLogin más adelante
-            // Por el momento, no se realiza ninguna acción
-        } else {
-            // Mostrar un mensaje de alerta si las credenciales son incorrectas
-            Swal.fire({
-                title: "Error Login",
-                text: "Username o Password invalidos",
-                icon: "error"
-            });
-        }
+        // Llamar a la función para iniciar sesion
+        handlerLogin({ username, password })
 
         // Reiniciar el formulario a sus valores iniciales
         setLoginForm(initialLoginForm);
