@@ -1,8 +1,9 @@
-// Importar el hook useReducer, el reducer loginReducer, la libreria SweetAlert2 y la función de tipo helper loginUser
+// Importar los hooks useReducer y useNavigate, el reducer loginReducer, la libreria SweetAlert2 y la función de tipo helper loginUser
 import { useReducer } from "react";
 import { loginReducer } from "../reducers/loginReducer";
 import Swal from "sweetalert2";
 import { loginUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 // Definir los valores iniciales para el estado de login
 const initialLogin = JSON.parse(sessionStorage.getItem("login")) || {
@@ -14,6 +15,9 @@ const initialLogin = JSON.parse(sessionStorage.getItem("login")) || {
 export const useAuth = () => {
   // Inicializar el estado de login usando useReducer con loginReducer y initialLogin
   const [login, dispatch] = useReducer(loginReducer, initialLogin);
+
+  // Definir navigate para redireccionar a otras rutas
+  const navigate = useNavigate();
 
   // Función para manejar el login del usuario
   const handlerLogin = ({ username, password }) => {
@@ -39,6 +43,9 @@ export const useAuth = () => {
           user,
         })
       );
+
+      // Redirigir a la página de usuarios después de un login exitoso
+      navigate("/users");
     } else {
       // Mostrar un mensaje de alerta si las credenciales son incorrectas
       Swal.fire({

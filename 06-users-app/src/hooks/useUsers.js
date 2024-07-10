@@ -1,7 +1,8 @@
-// Importar los hooks useReducer y useState, el reducer usersReducer y la libreria SweetAlert2
+// Importar los hooks useReducer, useState y useNavigate, el reducer usersReducer y la libreria SweetAlert2
 import { useReducer, useState } from "react";
 import { usersReducer } from "../reducers/usersReducer";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 // Datos iniciales de usuarios
 const initialUsers = [
@@ -32,6 +33,9 @@ export const useUsers = () => {
   // Estado para controlar la visibilidad del formulario
   const [visibleForm, setVisibleForm] = useState(false);
 
+  // Definir navigate para redireccionar a otras rutas
+  const navigate = useNavigate();
+
   // Función para agregar o editar un nuevo usuario
   const handlerAddUser = (user) => {
     // Disparar la acción correspondiente con los datos del usuario
@@ -57,6 +61,9 @@ export const useUsers = () => {
 
     // Cerrar el formulario después de agregar o editar un usuario
     handlerCloseForm();
+
+    // Redirigir a la página de usuarios después de agregar o editar un usuario
+    navigate("/users");
   };
 
   // Función para eliminar un usuario
