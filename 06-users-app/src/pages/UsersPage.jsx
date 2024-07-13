@@ -1,13 +1,11 @@
-// Importar los componentes UserModalForm y UsersList, y el hook personalizado useUsers
+// Importar los componentes UserModalForm y UsersList
 import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
-import { useUsers } from "../hooks/useUsers";
 
 // Pagina web funcional UsersPage
-export const UsersPage = () => {
-
-    // Desestructuración del objeto retornado por el hook useUsers
-    const {
+// Recibe las propiedades desestructuradas users, userSelected, initialUserForm, visibleForm, handlerAddUser, handlerRemoveUser, handlerUserSelectedForm, handlerOpenForm y handlerCloseForm
+export const UsersPage = (
+    {
         users,
         userSelected,
         initialUserForm,
@@ -17,7 +15,8 @@ export const UsersPage = () => {
         handlerUserSelectedForm,
         handlerOpenForm,
         handlerCloseForm,
-    } = useUsers();
+    }
+) => {
 
     return (
         <>

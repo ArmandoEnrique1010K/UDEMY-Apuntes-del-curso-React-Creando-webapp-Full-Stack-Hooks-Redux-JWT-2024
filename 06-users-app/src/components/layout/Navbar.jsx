@@ -20,6 +20,10 @@ export const Navbar = ({ login, handlerLogout }) => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/users">Usuarios</NavLink>
                         </li>
+                        {/* Enlace a la página de registrar usuario */}
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/users/register">Registrar Usuario</NavLink>
+                        </li>
                     </ul>
                 </div>
 
