@@ -1,6 +1,7 @@
-// Importar el hook useState y la libreria SweetAlert2
-import { useState } from "react";
+// Importar los hooks useContext y useState, la libreria SweetAlert2 y el contexto AuthContext
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthContext";
 
 // Valores iniciales para el formulario de login
 const initialLoginForm = {
@@ -9,8 +10,10 @@ const initialLoginForm = {
 }
 
 // Pagina web funcional LoginPage
-// Recibe la propiedad desestructurada handlerLogin
-export const LoginPage = ({ handlerLogin }) => {
+export const LoginPage = () => {
+
+    // Obtener las propiedades handlerLogin desde el contexto AuthContext
+    const { handlerLogin } = useContext(AuthContext);
 
     // Estado local para el formulario de login
     const [loginForm, setLoginForm] = useState(initialLoginForm)

@@ -1,9 +1,13 @@
-// Importar el componente UserRow
+// Importar el componente UserRow, el hook useContext y el contexto UserContext
+import { useContext } from "react";
 import { UserRow } from "./UserRow"
+import { UserContext } from "../context/UserContext";
 
 // Componente funcional UsersList
-// Recibe las propiedades desestructuradas handlerUserSelectedForm y handlerRemoveUser (como funciones), y users (por defecto es un arreglo vacio)
-export const UsersList = ({ handlerUserSelectedForm, handlerRemoveUser, users = [] }) => {
+export const UsersList = () => {
+
+    // Obtener la propiedad user desde el contexto UserContext
+    const { users } = useContext(UserContext);
 
     return (
         <table className="table table-hover table-striped">
@@ -25,12 +29,10 @@ export const UsersList = ({ handlerUserSelectedForm, handlerRemoveUser, users = 
                         <UserRow
                             // Clave única para el elemento de la lista
                             key={id}
-                            // Pasar las propiedades id, username, email, handlerUserSelectedForm y handlerRemoveUser al componente UserRow
+                            // Pasar las propiedades id, username y email al componente UserRow
                             id={id}
                             username={username}
                             email={email}
-                            handlerUserSelectedForm={handlerUserSelectedForm}
-                            handlerRemoveUser={handlerRemoveUser}
                         />
                     ))
                 }

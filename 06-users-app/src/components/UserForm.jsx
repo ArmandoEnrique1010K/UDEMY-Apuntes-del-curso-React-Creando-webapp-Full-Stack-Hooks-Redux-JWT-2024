@@ -1,10 +1,14 @@
-// Importar los hooks useEffect y useState, y la libreria SweetAlert2
-import { useEffect, useState } from "react"
+// Importar los hooks useContext, useEffect y useState, la libreria SweetAlert2 y el contexto UserContext
+import { useContext, useEffect, useState } from "react"
 import Swal from "sweetalert2";
+import { UserContext } from "../context/UserContext";
 
 // Componente funcional UserForm
-// Recibe las propiedades desestructuradas userSelected,initialUserForm, handlerAddUser y handlerCloseForm
-export const UserForm = ({ userSelected, initialUserForm, handlerAddUser, handlerCloseForm }) => {
+// Recibe las propiedades desestructuradas userSelected y handlerCloseForm
+export const UserForm = ({ userSelected, handlerCloseForm }) => {
+
+    // Obtener las propiedades initialUserForm y handlerAddUser desde el contexto UserContext
+    const { initialUserForm, handlerAddUser } = useContext(UserContext);
 
     // Estado local para el formulario de usuarios
     const [userForm, setUserForm] = useState(initialUserForm);

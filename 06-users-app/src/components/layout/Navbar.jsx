@@ -1,9 +1,14 @@
-//Importar componentes necesarios de react-router-dom
+//Importar componentes necesarios de react-router-dom, el hook useContext y el contexto AuthContext
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../auth/context/AuthContext";
 
 // Layout funcional Navbar
-// Recibe las propiedades desestructuradas login y handlerLogout
-export const Navbar = ({ login, handlerLogout }) => {
+export const Navbar = () => {
+
+    // Obtener las propiedades login y handlerLogout desde el contexto AuthContext
+    const { login, handlerLogout } = useContext(AuthContext);
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">

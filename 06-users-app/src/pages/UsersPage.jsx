@@ -1,34 +1,24 @@
-// Importar los componentes UserModalForm y UsersList
+// Importar los componentes UserModalForm y UsersList, el hook useContext y el contexto UserContext
+import { useContext } from "react";
 import { UserModalForm } from "../components/UserModalForm";
 import { UsersList } from "../components/UsersList";
+import { UserContext } from "../context/UserContext";
 
 // Pagina web funcional UsersPage
-// Recibe las propiedades desestructuradas users, userSelected, initialUserForm, visibleForm, handlerAddUser, handlerRemoveUser, handlerUserSelectedForm, handlerOpenForm y handlerCloseForm
-export const UsersPage = (
-    {
+export const UsersPage = () => {
+
+    // Obtener todas las propiedades desde el contexto UserContext
+    const {
         users,
-        userSelected,
-        initialUserForm,
         visibleForm,
-        handlerAddUser,
-        handlerRemoveUser,
-        handlerUserSelectedForm,
         handlerOpenForm,
-        handlerCloseForm,
-    }
-) => {
+    } = useContext(UserContext);
 
     return (
         <>
             {
-                // Renderizar el componente UserModalForm, pasando las propiedades userSelected, initialUserForm, handlerAddUser y handlerCloseForm; solamente si el estado de visibleForm es true
-                !visibleForm ||
-                <UserModalForm
-                    userSelected={userSelected}
-                    initialUserForm={initialUserForm}
-                    handlerAddUser={handlerAddUser}
-                    handlerCloseForm={handlerCloseForm}
-                />
+                // Renderizar el componente UserModalForm solamente si el estado de visibleForm es true
+                !visibleForm || <UserModalForm />
             }
             <div className="container my-4">
                 <h2>Users App</h2>
@@ -50,12 +40,8 @@ export const UsersPage = (
                                 // Si no hay usuarios, mostrar un mensaje de advertencia
                                 <div className="alert alert-warning">No hay usuarios en el sistema!</div>
                                 :
-                                // Si hay usuarios, renderizar el componente UsersList, pasando las propiedades users, handlerRemoveUser y handlerUserSelectedForm */
-                                <UsersList
-                                    users={users}
-                                    handlerRemoveUser={handlerRemoveUser}
-                                    handlerUserSelectedForm={handlerUserSelectedForm}
-                                />
+                                // Si hay usuarios, renderizar el componente UsersList*/
+                                <UsersList />
                         }
                     </div>
                 </div>

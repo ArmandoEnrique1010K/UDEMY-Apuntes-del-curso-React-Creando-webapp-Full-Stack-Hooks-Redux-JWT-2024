@@ -1,11 +1,14 @@
-// Importar los hooks useState, useEffect y useParams, y el componente UserForm
-import { useEffect, useState } from "react"
+// Importar los hooks useContext, useState, useEffect y useParams, el componente UserForm y el contexto UserContext
+import { useContext, useEffect, useState } from "react"
 import { UserForm } from "../components/UserForm"
 import { useParams } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 // Pagina web funcional RegisterPage
-// Recibe las propiedades desestructuradas users (por defecto se define un arreglo vacio), initialUserForm y handlerAddUser
-export const RegisterPage = ({ users = [], initialUserForm, handlerAddUser }) => {
+export const RegisterPage = () => {
+
+    // Obtener las propiedades users e initialUserForm desde el contexto UserContext
+    const { users = [], initialUserForm } = useContext(UserContext);
 
     // Estado para el usuario seleccionado en el formulario
     const [userSelected, setUserSelected] = useState(initialUserForm);
@@ -38,11 +41,9 @@ export const RegisterPage = ({ users = [], initialUserForm, handlerAddUser }) =>
             <h4>{userSelected.id > 0 ? 'Editar' : 'Registrar'} Usuario</h4>
             <div className="row">
                 <div className="col">
-                    {/* Renderizar el componente UserForm, pasando las propiedades userSelected, initialUserForm y handlerAddUser */}
+                    {/* Renderizar el componente UserForm, pasando la propiedad userSelected */}
                     <UserForm
                         userSelected={userSelected}
-                        initialUserForm={initialUserForm}
-                        handlerAddUser={handlerAddUser}
                     />
                 </div>
             </div>

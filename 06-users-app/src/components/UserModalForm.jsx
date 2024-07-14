@@ -1,9 +1,13 @@
-// Importar el componente UserForm
+// Importar el hook useContext, el componente UserForm y el contexto UserContext
+import { useContext } from "react";
 import { UserForm } from "./UserForm";
+import { UserContext } from "../context/UserContext";
 
 // Componente funcional UserModalForm
-// Recibe las propiedades desestructuradas userSelected,initialUserForm, handlerAddUser y handlerCloseForm
-export const UserModalForm = ({ userSelected, initialUserForm, handlerAddUser, handlerCloseForm }) => {
+export const UserModalForm = () => {
+
+    // Obtener las propiedades userSelected y handlerCloseForm desde el contexto UserContext
+    const { userSelected, handlerCloseForm } = useContext(UserContext);
 
     return (
         <div className="abrir-modal animacion fadeIn">
@@ -21,11 +25,9 @@ export const UserModalForm = ({ userSelected, initialUserForm, handlerAddUser, h
                             </h5>
                         </div>
                         <div className="modal-body">
-                            {/* Renderizar el componente UserForm pasando las propiedades initialUserForm, userSelected, handlerAddUsers y handlerCloseForm */}
+                            {/* Renderizar el componente UserForm pasando las propiedades userSelected y handlerCloseForm */}
                             <UserForm
-                                initialUserForm={initialUserForm}
                                 userSelected={userSelected}
-                                handlerAddUser={handlerAddUser}
                                 handlerCloseForm={handlerCloseForm}
                             />
                         </div>

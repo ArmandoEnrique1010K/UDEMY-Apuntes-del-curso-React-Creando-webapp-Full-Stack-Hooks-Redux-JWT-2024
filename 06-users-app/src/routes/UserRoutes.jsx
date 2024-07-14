@@ -1,71 +1,43 @@
-// Importar componentes necesarios de react-router-dom, las páginas UsersPage y Register Page, el layout Navbar y el hook personalizado useUsers
+// Importar componentes necesarios de react-router-dom, las páginas UsersPage y Register Page, el layout Navbar y el proveedor UserProvider
 import { Navigate, Route, Routes } from "react-router-dom"
 import { UsersPage } from "../pages/UsersPage"
 import { Navbar } from "../components/layout/Navbar"
 import { RegisterPage } from "../pages/RegisterPage"
-import { useUsers } from "../hooks/useUsers"
+import { UserProvider } from "../context/UserProvider"
 
 // Componente funcional UserRoutes
-// Recibe las propiedades desestructuradas login y handlerLogout
-export const UserRoutes = ({ login, handlerLogout }) => {
-
-    // Desestructuración del objeto retornado por el hook useUsers
-    const {
-        users,
-        userSelected,
-        initialUserForm,
-        visibleForm,
-        handlerAddUser,
-        handlerRemoveUser,
-        handlerUserSelectedForm,
-        handlerOpenForm,
-        handlerCloseForm,
-    } = useUsers();
+export const UserRoutes = () => {
 
     return (
         <>
-            {/* Renderizar el componente Navbar pasando las propiedades login y handlerLogout */}
-            <Navbar login={login} handlerLogout={handlerLogout} />
+            {/* Permitir el acceso al contexto UserContext */}
+            <UserProvider>
 
-            {/* Definir las rutas utilizando Routes */}
-            <Routes>
+                {/* Renderizar el componente Navbar */}
+                <Navbar />
 
-                {/* Ruta para /users que renderiza el componente UsersPage, se pasan las 9 propiedades */}
-                <Route path="users" element={
-                    <UsersPage
-                        users={users}
-                        userSelected={userSelected}
-                        initialUserForm={initialUserForm}
-                        visibleForm={visibleForm}
-                        handlerAddUser={handlerAddUser}
-                        handlerRemoveUser={handlerRemoveUser}
-                        handlerUserSelectedForm={handlerUserSelectedForm}
-                        handlerOpenForm={handlerOpenForm}
-                        handlerCloseForm={handlerCloseForm}
-                    />
-                } />
+                {/* Definir las rutas utilizando Routes */}
+                <Routes>
 
-                {/* Ruta para /users/register que renderiza el componente RegisterPage pasando las propiedades handlerAddUser e initialUserForm */}
-                <Route path="users/register" element={
-                    <RegisterPage
-                        handlerAddUser={handlerAddUser}
-                        initialUserForm={initialUserForm}
-                    />
-                } />
+                    {/* Ruta para /users que renderiza el componente UsersPage */}
+                    <Route path="users" element={<UsersPage />} />
 
-                {/* Ruta para /users/edit/:id que renderiza el componente RegisterPage. Esta ruta utiliza un path variable (id) para identificar al usuario que se desea editar. Se pasan las propiedades users, handlerAddUser e initialUserForm.*/}
-                <Route path="users/edit/:id" element={
-                    <RegisterPage
-                        users={users}
-                        handlerAddUser={handlerAddUser}
-                        initialUserForm={initialUserForm}
-                    />
-                } />
+                    {/* Ruta para /users/register que renderiza el componente RegisterPage */}
+                    <Route path="users/register" element={
+                        <RegisterPage />
+                    } />
 
-                {/* Ruta raíz que redirige a /users */}
-                <Route path="/" element={<Navigate to="/users" />} />
+                    {/* Ruta para /users/edit/:id que renderiza el componente RegisterPage. Esta ruta utiliza un path variable (id) para identificar al usuario que se desea editar. */}
+                    <Route path="users/edit/:id" element={
+                        <RegisterPage />
+                    } />
 
-            </Routes>
+                    {/* Ruta raíz que redirige a /users */}
+                    <Route path="/" element={<Navigate to="/users" />} />
+
+                </Routes>
+            </UserProvider>
+
         </>
     )
 }
